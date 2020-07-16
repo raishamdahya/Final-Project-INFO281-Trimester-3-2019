@@ -27,6 +27,12 @@ On average the pay-gap has decreased from 1998 to 2019. With the gap starting at
 
 ![male](https://user-images.githubusercontent.com/48772625/87615037-cc36f700-c765-11ea-8610-c305ba6d264e.png)
 
+For both males and females, a post-graduate qualification leads to higher weekly income from 2013-2019. In 2013, females with a post-grad qualification earns just under $1200 per week, whilst a male with a post-grad qualification earns over $1500. This trend continues is years 2014, 2015, 2016, 2017, 2018 and 2019.
+
+In general, males are earning more than females on a weekly basis throughout these years.
+
+The y-axis' are also evidence that males earn more. The highest weekly income for females are on a scale upto $1400, whilst the male y-axis is on a scale of $2000. There is a large difference in weekly income between all non-qualification/qualification groups between the two genders.
+
 ![industry2017](https://user-images.githubusercontent.com/48772625/87614919-8417d480-c765-11ea-8623-20c273355872.png)
 
 ![industry2018](https://user-images.githubusercontent.com/48772625/87614916-837f3e00-c765-11ea-920b-1415b884985d.png)
