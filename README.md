@@ -11,11 +11,19 @@ For this project I used flexdashboard as my dashboard tool and the plotly librar
 
 ![south](https://user-images.githubusercontent.com/48772625/87614910-824e1100-c765-11ea-82b7-d7170d6bd3fd.png)
 
-![survey](https://user-images.githubusercontent.com/48772625/87615176-3780c900-c766-11ea-9e44-0accc2c9cc41.png)
+Based on both the graphs for the north and south island, its evident that Auckland and Wellington have the highest weekly earnings above $1200 on average for the North and South island.
+
+
 
 ![paygap](https://user-images.githubusercontent.com/48772625/87614207-8416d500-c763-11ea-9960-906502e2d6b8.png)
 
+On average the pay-gap has decreased from 1998 to 2019. With the gap starting at 16%, falling to 14% in 2005 and less than 10% 2015 onwards.
+
+
+
 ![female](https://user-images.githubusercontent.com/48772625/87614920-8417d480-c765-11ea-82c1-57bd7273c6aa.png)
+
+
 
 ![male](https://user-images.githubusercontent.com/48772625/87615037-cc36f700-c765-11ea-8610-c305ba6d264e.png)
 
