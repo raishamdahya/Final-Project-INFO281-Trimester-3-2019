@@ -7,4 +7,24 @@ After using many public platforms to find data, my dashboard came down to explor
 
 For this project I used flexdashboard as my dashboard tool and the plotly library to make the dashboard interactive.
 
+![north](https://user-images.githubusercontent.com/48772625/87614911-824e1100-c765-11ea-9947-f2593f534f53.png)
+
+![south](https://user-images.githubusercontent.com/48772625/87614910-824e1100-c765-11ea-82b7-d7170d6bd3fd.png)
+
+![paygap](https://user-images.githubusercontent.com/48772625/87614207-8416d500-c763-11ea-9960-906502e2d6b8.png)
+
+![female](https://user-images.githubusercontent.com/48772625/87614920-8417d480-c765-11ea-82c1-57bd7273c6aa.png)
+
+![male](https://user-images.githubusercontent.com/48772625/87615037-cc36f700-c765-11ea-8610-c305ba6d264e.png)
+
+![industry2017](https://user-images.githubusercontent.com/48772625/87614919-8417d480-c765-11ea-8623-20c273355872.png)
+
+![industry2018](https://user-images.githubusercontent.com/48772625/87614916-837f3e00-c765-11ea-920b-1415b884985d.png)
+
+![industry2019](https://user-images.githubusercontent.com/48772625/87614912-82e6a780-c765-11ea-92d2-0a8abe6fd2d8.png)
+
+![ethnic](https://user-images.githubusercontent.com/48772625/87614921-84b06b00-c765-11ea-84b4-e8b9955bc43e.png)
+
+![world](https://user-images.githubusercontent.com/48772625/87614906-7eba8a00-c765-11ea-8b2f-d69966da2422.png)
+
 
