@@ -11,6 +11,8 @@ For this project I used flexdashboard as my dashboard tool and the plotly librar
 
 ![south](https://user-images.githubusercontent.com/48772625/87614910-824e1100-c765-11ea-82b7-d7170d6bd3fd.png)
 
+![survey](https://user-images.githubusercontent.com/48772625/87615176-3780c900-c766-11ea-9e44-0accc2c9cc41.png)
+
 ![paygap](https://user-images.githubusercontent.com/48772625/87614207-8416d500-c763-11ea-9960-906502e2d6b8.png)
 
 ![female](https://user-images.githubusercontent.com/48772625/87614920-8417d480-c765-11ea-82c1-57bd7273c6aa.png)
