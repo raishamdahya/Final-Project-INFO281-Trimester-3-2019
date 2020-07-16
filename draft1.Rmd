@@ -1,0 +1,327 @@
+---
+title: "Income Inequality Analysis"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+
+#install.packages("flexdashboard")
+#install.packages("plotly")
+#install.packages("d3heatmap")
+library(plotly)
+library(ggplot2)
+library(d3heatmap)
+library(dplyr)
+library(tidyr)
+
+#####Reading Data#####
+
+#Ethnic Data Files
+ethnicdata <- read.csv("EthnicData.csv")
+weeklyincomeethnicity <-read.csv("WeeklyIncomeEthnicity.csv")
+
+#Gender Income Files
+weeklyincomegender <-read.csv("WeeklyIncomeBothGenders.csv")
+
+#Regional Data Files
+regionalincome <-read.csv("RegionalIncome.csv")
+northregionalincome <-read.csv("NorthIslandRegionalIncome.csv")
+southregionalincome <-read.csv("SouthIslandRegionalIncome.csv")
+maleregionalincome <-read.csv("MaleRegionalData.csv")
+femaleregionalincome <-read.csv("FemaleRegionalData.csv")
+
+#Qualification Income Files
+maleincomequalification <-read.csv("MaleIncomeQualification.csv")
+femaleincomequalification <-read.csv("FemaleIncomeQualification.csv")
+
+
+#Industry Income Files
+june2019occupation <-read.csv("gender-pay-gap-by-occupation,-june-2019-quarter.csv")
+maleincomeindustry <-read.csv("MaleIncomeIndustry.csv")
+femaleincomeindustry <-read.csv("FemaleIncomeIndustry.csv")
+june2019 <-read.csv("gender-pay-gap,-june-quarter-1998–2019.csv")
+
+#World Gini Index
+giniindex <-read.csv("inequality-of-incomes-chartbook.csv")
+```
+
+Region
+=====================================  
+    
+Column {data-width=550}
+-------------------------------------
+    
+### Chart 1
+    
+```{r}
+#North Island
+northregion <- northregionalincome %>% 
+  filter(Region == "Northland" | Region == "Auckland" | Region == "Waikato"| Region == "Bay of Plenty" | Region == "Gisbourne/Hawks Bay"| Region == "Taranaki" | Region == "Manawatu-Wanganui"| Region == "Wellington")
+
+p1 <- northregion %>%
+  ggplot(aes(x = Year, y = Average.Weekly.earnings, color = Region)) +
+  scale_color_brewer(palette = "Set1") +
+  ylab("Average Weekly Earnings") + 
+  theme_minimal(base_size = 10) + 
+  geom_point() +
+  geom_line() +
+  xlim(1998,2019) +
+  ggtitle("Average Weekly Earnings by Region - North Island")
+ggplotly(p1)
+```
+   
+### Chart 2
+    
+```{r}
+#South Island
+southregion <- southregionalincome %>% 
+  filter(Region == "Nelson/Tasman/Malborough/West Coast" | Region == "Cantebury" | Region == "Otago"| Region == "Southland")
+
+p2 <- southregion %>%
+  ggplot(aes(x = Year, y = Average.Weekly.earnings, color = Region)) +
+  scale_color_brewer(palette = "Set1") +
+  ylab("Average Weekly Earnings") + 
+  theme_minimal(base_size = 10) + 
+  geom_point() +
+  geom_line() +
+  xlim(1998,2019) +
+  ggtitle("Average Weekly Earnings by Region - South Island")
+ggplotly(p2)
+```   
+
+Region 1.2 {data-orientation=rows}
+=====================================     
+   
+Row {data-height=1000}
+-------------------------------------
+
+### Chart 1
+
+```{r}
+library(reshape)
+
+data <- data.frame(Answer = c("Have more than enough money", "Have enough money", "Have just enough money", "Do not have enough money", "Prefer not to answer"), 
+                   Auckland = c(11,30,35,19,5), 
+                   Hamilton = c(10,28,41,16,5), 
+                   Tauranga = c(12,38,35,12,4),
+                   Hutt = c(12,39,31,14,3), 
+                   Porirua = c(10,36,29,19,5), 
+                   Wellington = c(16,42,28,11,3),
+                   Christchurch = c(11,41,31,13,4),
+                   Dunedin = c(12,41,34,11,2))
+m_data <- melt(data)
+
+g <- ggplot(m_data,aes(x=variable, y=value, fill=Answer)) +
+  geom_bar(position="stack", stat="identity") +
+   xlab("City") + ylab("(%)")+
+  coord_flip() +
+  theme_minimal()
+
+ggplotly(g)
+```
+
+
+Gender Pay-Gap {data-orientation=rows}
+=====================================     
+   
+Row {data-height=550}
+-------------------------------------
+   
+### Chart 1
+
+```{r}
+
+#Plotting gender pay gap
+p_avg_income_region <- plot_ly(june2019, x = ~Year,
+                                  y = ~Gender.pay.gap...., 
+                                  type = 'bar', 
+                                  name = 'Gender Pay-Gap',
+                                  
+                                  marker = list(color = 'rgb(51, 184, 255)')) %>% 
+  layout(title="Gender Pay-Gap (%) 1998-2019", yaxis = list(title = "Gender Pay-Gap (%)"))
+p_avg_income_region
+
+```
+
+Qualification - Female{data-orientation=rows}
+=====================================     
+   
+Row {data-height=500}
+-------------------------------------
+
+### Chart 1
+
+```{r}
+#Female Qualification
+data <- data.frame(Year = 2013:2019, 
+                   No_Qualification = c(561,575,579, 627, 682, 674, 707), 
+                   Lower_secondary_school_qualification = c(678, 690, 686, 759, 710, 770, 798), 
+                   Upper_secondary_school_qualification = c(626, 605, 645, 688, 722, 761, 805), 
+                   Level_1_3_post_school_certificate = c(631, 651, 657, 660, 672, 703, 762),
+                   Level_4_6_certificate_or_diploma = c(753, 780, 763, 848, 844, 815, 863), 
+                   Bachelors_degree = c(980,1006,1028, 1077, 1091, 1125, 1151), 
+                   Postgraduate_qualification = c(1178, 1245, 1244, 1331, 1399, 1385, 1474))
+
+
+
+
+data %>% 
+  plot_ly(x = ~Year,y = ~No_Qualification, type = 'bar', name = 'No_Qualification') %>%
+  add_trace(y = ~Lower_secondary_school_qualification, name = 'Lower_secondary_school_qualification') %>%
+  add_trace(y = ~Upper_secondary_school_qualification, name = 'Upper_secondary_school_qualification') %>%
+  add_trace(y = ~Level_1_3_post_school_certificate, name = 'Level_1_3_post_school_certificate') %>%
+  add_trace(y = ~Level_4_6_certificate_or_diploma, name = 'Level_4_6_certificate_or_diploma') %>%
+  add_trace(y = ~Bachelors_degree, name = 'Bachelors_degree') %>%
+  add_trace(y = ~Postgraduate_qualification, name = 'Postgraduate_qualification') %>%
+  layout(title = "Weekly Income by Qualification - Female",yaxis = list(title = 'Income'), barmode = 'group')
+
+
+
+
+```
+
+Qualification - Male{data-orientation=rows}
+=====================================     
+   
+Row {data-height=500}
+-------------------------------------
+### Chart 1
+
+```{r}
+#Male Qualification
+data <- data.frame(Year = 2013:2019, 
+                   No_Qualification = c(886,884,914,969,995,1015,1055), 
+                   Lower_secondary_school_qualification = c(907,952,958,1086,1109,1183,1103), 
+                   Upper_secondary_school_qualification = c(893,851,916,1022,1026,1054,1063), 
+                   Level_1_3_post_school_certificate = c(936,966,915,931,944,1032,1049),
+                   Level_4_6_certificate_or_diploma = c(1163,1158,1221,1272,1286,1285,1288), 
+                   Bachelors_degree = c(1400,1455,1485,1518,1511,1619,1643), 
+                   Postgraduate_qualification = c(1679,1786,1851,1820,1867,1915,1896))
+
+
+
+
+data %>% 
+  plot_ly(x = ~Year,y = ~No_Qualification, type = 'bar', name = 'No_Qualification') %>%
+  add_trace(y = ~Lower_secondary_school_qualification, name = 'Lower_secondary_school_qualification') %>%
+  add_trace(y = ~Upper_secondary_school_qualification, name = 'Upper_secondary_school_qualification') %>%
+  add_trace(y = ~Level_1_3_post_school_certificate, name = 'Level_1_3_post_school_certificate') %>%
+  add_trace(y = ~Level_4_6_certificate_or_diploma, name = 'Level_4_6_certificate_or_diploma') %>%
+  add_trace(y = ~Bachelors_degree, name = 'Bachelors_degree') %>%
+  add_trace(y = ~Postgraduate_qualification, name = 'Postgraduate_qualification') %>%
+  layout(title = "Weekly Income by Qualification - Male",yaxis = list(title = 'Income'), barmode = 'group')
+```
+
+
+Industry 2017 {data-orientation=rows}
+=====================================     
+   
+Row {data-height=500}
+-------------------------------------
+
+### Chart 1
+
+```{r}
+transposedfemale <-read.csv("transposedfemaleindustry.csv")
+transposedmale <-read.csv("transposedmaleindustry.csv")
+
+ p1 <- plot_ly(transposedfemale, x = ~Industry, y = ~X2017, type = 'bar', name = 'Female 2017')
+  
+ p2 <- plot_ly(transposedmale, x = ~Industry, y = ~X2017, type = 'bar', name = 'Male 2017') 
+   
+
+subplot(p1,p2)
+```
+
+Industry 2018 {data-orientation=rows}
+=====================================     
+   
+Row {data-height=500}
+-------------------------------------
+### Chart 1
+
+```{r}
+ p11 <- plot_ly(transposedfemale, x = ~Industry, y = ~X2018, type = 'bar', name = 'Female 2018') 
+   
+ p12 <- plot_ly(transposedmale, x = ~Industry, y = ~X2018, type = 'bar', name = 'Male 2018')
+   
+
+subplot(p11,p12)
+
+```
+
+Industry 2019 {data-orientation=rows}
+=====================================     
+   
+Row {data-height=500}
+-------------------------------------
+### Chart 2
+
+```{r}
+p13 <- plot_ly(transposedfemale, x = ~Industry, y = ~X2019, type = 'bar', name = 'Female 2019')
+   
+ p14 <- plot_ly(transposedmale, x = ~Industry, y = ~X2019, type = 'bar', name = 'Male 2019')
+
+subplot(p13,p14)
+
+```
+
+Ethnicity {data-orientation=rows}
+=====================================     
+   
+Row {data-height=1000}
+-------------------------------------
+
+### Chart 1
+
+```{r}
+p <- plot_ly(ethnicdata, x = ~Average.Weekly.Earnings, y = ~Year, z = ~Average.Hourly.Earnings, color = ~Ethnicity, colors = c('#4b3bf7', '#f7673b')) %>%
+  add_markers() %>%
+  layout(title = "Weekly/Hourly Income by Ethnicity",scene = list(xaxis = list(title = 'Weekly Income'),
+                     yaxis = list(title = 'Year'),
+                     zaxis = list(title = 'Hourly Income')))
+p
+
+
+```
+
+World {data-orientation=rows}
+=====================================     
+   
+Row {data-height=1000}
+-------------------------------------
+
+### Chart 1
+
+```{r}
+ginidata <-read.csv("ginidata.csv")
+
+p <- ginidata %>%
+  plot_ly(
+    x = ~name, 
+    y = ~giniIndex, 
+    size = ~pop2019, 
+    color = ~name, 
+    hoverinfo = "text",
+    type = 'line',
+    mode = 'markers'
+  ) %>%
+  layout(
+    xaxis = list(
+      type = "log"
+    )
+  )
+p_index <- plot_ly(ginidata, x=~name,
+                     y = ~giniIndex,
+                     color = ~name,
+                     size = ~pop2019)%>%
+                    layout(title="World Gini Index - Income Inequality Measure (2019)",
+                           xaxis= list(title = "Gini Index 2019"),
+                           yaxis= list(title = "Gini Index"))
+p_index
+```
+
